@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Pig Latin Translator</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box has-text-centered generator">
+        <h1>🐹 Pig Latin Translator</h1>
+        <form id="phrase-submit" class="form">
+          <input
+            id="phrase"
+            class="input"
+            type="text"
+            placeholder="Enter a phrase here."
+          />
+          <input type="submit" class="button is-link" />
+        </form>
+        <div class="box output">
+          <p id="pig-latin">Your phrase will appear here.</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <a href="https://github.com/griffique/pig-latin">Open Source Code</a> by
+      <a href="https://quinneringriffin.com">Quinn Griffin</a>
+    </footer>
+  </body>
+  <script src="../src/index.js"></script>
+</html>

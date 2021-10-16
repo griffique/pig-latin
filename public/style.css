@@ -1,0 +1,46 @@
+a {
+  color: #963a7d;
+}
+a:hover {
+  text-decoration: underline;
+  color: #d283a0;
+}
+a:visited {
+  color: #14b8e6;
+}
+footer {
+  background-color: white;
+  bottom: 0px;
+  padding: 20px;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}
+html {
+  background-color: #eed3df;
+}
+h1 {
+  color: #d283a0;
+  font-size: 32px;
+  margin: 0 0 20px 0;
+}
+
+.generator {
+  max-width: 50%;
+  margin: 100px auto;
+  padding: 50px 0;
+}
+
+.output {
+  margin: 50px auto;
+  max-width: 80%;
+}
+
+#phrase {
+  max-width: 50%;
+}
+
+#pig-latin {
+  padding: 20px;
+  text-align: center;
+}
