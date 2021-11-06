@@ -1,13 +1,17 @@
 let pigLatin;
-//define vowels in an array for easy comparison
+//define vowels and identify capital letters in arrays for easy comparison
 const vowels = ["a", "e", "i", "o", "u"];
+let capitalTracker = [];
 //identify display area for translated phrase
 const displayArea = document.getElementById("pig-latin");
 //function to determine length of consonant prefix if the word starts with a consonant
 const findPrefix = (str) => {
   let prefix = [];
   for (let i = 1; i < str.length; i++) {
-    if (vowels.indexOf(str[i]) === -1 && str[i] !== "y") {
+    if (
+      vowels.indexOf(str[i].toLowerCase()) === -1 &&
+      str[i].toLowerCase() !== "y"
+    ) {
       prefix.push(str[i]);
     } else {
       return prefix.length + 1;
@@ -15,30 +19,37 @@ const findPrefix = (str) => {
   }
 };
 // function to remove consonant beginning, move it to the end, and append 'ay';
-const handleConsonant = (str) => {
+const handleConsonant = (str, index) => {
   let cutNumber = findPrefix(str);
   if (cutNumber) {
     let suffix = str.slice(0, cutNumber) + "ay";
     let prefix = str.slice(cutNumber);
     pigLatin = prefix + suffix;
   }
-  //if the word has no vowels, just add 'ay' to the end, as in 'rhythmay'
+  let newStr = pigLatin.toLowerCase();
+  //check for capital letters within the string and move them to the front
+  if (capitalTracker[index] === true) {
+    newStr = pigLatin.slice(1).toLowerCase();
+    let cap = pigLatin.slice(0, 1).toUpperCase();
+    pigLatin = cap + newStr;
+  }
+  //if the word has no vowels, just add 'ay' to the end.
   else pigLatin = str + "ay";
 };
 
 // function to add 'way' to end of vowel words
-const handleVowel = (str) => {
+const handleVowel = (str, index) => {
   pigLatin = str + "way";
 };
 
 // function receives string, determines if it starts with a vowel or consonant, and calls the appropriate function to handle it
-const translatePigLatin = (str) => {
+const translatePigLatin = (str, index) => {
   if (str.length === 0) {
     return null;
-  } else if (vowels.indexOf(str[0]) !== -1) {
-    handleVowel(str);
+  } else if (vowels.indexOf(str[0].toLowerCase()) !== -1) {
+    handleVowel(str, index);
   } else {
-    handleConsonant(str);
+    handleConsonant(str, index);
   }
   return pigLatin;
 };
@@ -47,7 +58,15 @@ const translatePigLatin = (str) => {
 phraseSplitter = (phrase) => {
   let regex = /\W+|\s+/;
   let phraseArray = phrase.split(regex);
-  console.log(phraseArray);
+  phraseArray.map((item) => {
+    if (item[0] !== undefined) {
+      if (item[0].toUpperCase() === item[0]) {
+        capitalTracker.push(true);
+      } else {
+        capitalTracker.push(false);
+      }
+    }
+  });
   displayPigLatin(phraseArray);
 };
 
@@ -55,11 +74,12 @@ phraseSplitter = (phrase) => {
 const displayPigLatin = (phrase) => {
   let newPhraseArray = [];
 
-  phrase.map((item) => {
-    newPhraseArray.push(translatePigLatin(item.trim()));
+  phrase.map((item, index) => {
+    newPhraseArray.push(translatePigLatin(item.trim(), index));
     newPhrase = newPhraseArray.join(" ");
   });
   displayArea.innerHTML = newPhrase;
+  capitalTracker = [];
 };
 
 const form = document.getElementById("phrase-submit");
