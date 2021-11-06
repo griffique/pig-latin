@@ -7,7 +7,7 @@ const displayArea = document.getElementById("pig-latin");
 const findPrefix = (str) => {
   let prefix = [];
   for (let i = 1; i < str.length; i++) {
-    if (vowels.indexOf(str[i]) === -1) {
+    if (vowels.indexOf(str[i]) === -1 && str[i] !== "y") {
       prefix.push(str[i]);
     } else {
       return prefix.length + 1;
@@ -33,8 +33,8 @@ const handleVowel = (str) => {
 
 // function receives string, determines if it starts with a vowel or consonant, and calls the appropriate function to handle it
 const translatePigLatin = (str) => {
-  if (str.match(/\W+/)) {
-    return str;
+  if (str.length === 0) {
+    return null;
   } else if (vowels.indexOf(str[0]) !== -1) {
     handleVowel(str);
   } else {
